@@ -1,6 +1,8 @@
 // content.js
 
 // =========== YNET ===========
+const YNET_BADWORD = "בשיתוף"
+
 const filterYnet = () => {
     removeFromTextDiv();
     removeAllSlotViews();
