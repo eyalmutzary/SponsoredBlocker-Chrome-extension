@@ -23,5 +23,6 @@ And thats it!
 ### Supported websites
 - Ynet
 - Mako
-- more will be added later...
+- N12
+- More TBD...
 
