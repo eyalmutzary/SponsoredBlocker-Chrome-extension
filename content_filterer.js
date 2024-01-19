@@ -106,7 +106,6 @@ const removeMultiImages1280Componenta = () => {
 
 const main = () => {
     const currentURL = window.location.href;
-    console.log(currentURL)
     console.log("running filterer...")
     if (currentURL.includes('ynet')) {
         filterYnet();
@@ -120,7 +119,6 @@ const main = () => {
             filterN12();
         }, 5000);
     }
-    console.log("finished")
 }
 
 main()
