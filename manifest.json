@@ -5,7 +5,7 @@
     "permissions": ["activeTab"],
     "content_scripts": [
       {
-        "matches": ["https://www.ynet.co.il/*", "https://www.mako.co.il/*"],
+        "matches": ["https://www.ynet.co.il/*", "https://www.mako.co.il/*", "https://www.n12.co.il/*"],
         "js": ["content_filterer.js"]
       }
     ]

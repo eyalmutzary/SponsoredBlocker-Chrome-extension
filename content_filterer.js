@@ -1,7 +1,51 @@
-// content.js
+// ======= general functions =========
+
+const BADWORDS = ['ממומן', 'בשיתוף']
+
+const removeByTags = (tagName) => {
+    const elements = document.getElementsByTagName(tagName);
+    removeBadwordsElements(elements);
+}
+
+const removeByClassname = (className) => {
+    const elements = document.getElementsByClassName(className);
+    removeBadwordsElements(elements)
+}
+
+const removeBadwordsElements = (elements) => {
+    for (let i = 0; i < elements.length; i++) {
+        if (BADWORDS.some(word => elements[i].innerHTML.includes(word))) {
+            elements[i].parentNode.removeChild(elements[i]);
+            console.log('Deleted a sponsored article')
+        }
+    }
+}
+
+// ========= MAKO ==========
+
+const filterMako = () => {
+    removeByClassname('ob-dynamic-rec-container')
+    removeByClassname('ob-widget-items-container')
+    removeByClassname('ob-widget')
+    removeByClassname('mako_main_portlet_container')
+}
+
+// ========= N12 ===========
+
+const filterN12 = () => {
+    removeByTags('li')
+    removeByClassname('ob-dynamic-rec-container')
+    setInterval(() => {
+        removeByTags('li')
+        removeByClassname('ob-dynamic-rec-container')
+    }, 10000);
+}
+
+
 
 // =========== YNET ===========
-const YNET_BADWORD = "בשיתוף"
+// Ynet is more complicated, so it got a section of its own.
+
 
 const filterYnet = () => {
     removeFromTextDiv();
@@ -14,7 +58,7 @@ const removeFromTextDiv = () => {
     const elements = document.getElementsByClassName('textDiv');
     for (let i = 0; i < elements.length; i++) {
         const element = elements[i];
-        if (element.innerText.includes(YNET_BADWORD)) {
+        if (BADWORDS.some(word => element.innerHTML.includes(word))) {
             recursiveRemoveEmptyParents(element);
         }
     }
@@ -34,69 +78,49 @@ const removeAllSlotViews = () => {
     removeAllSponsoredElements(elements);
 }
 
-const removeMultiImages1280Componenta = () => {
-    const elements = document.getElementsByClassName('MultiImages1280Componenta');
-    console.log(elements);
-    for (let i = 0; i < elements.length; i++) {
-        console.log(elements[i].outerHTML);
-        if (elements[i].innerHTML.includes(YNET_BADWORD) || elements[i].outerHTML.includes(YNET_BADWORD) ) {
-            elements[i].parentNode.removeChild(elements[i]);
-        }
-    }
-}
-
 const removeAllSponsoredElements = (elements) => {
     for (let i = 0; i < elements.length; i++) {
         const element = elements[i];
         const children = element.childNodes;
         for (let j = 0; j < children.length; j++) {
             const child = children[j];
-            if (child.innerText.includes(YNET_BADWORD)) {
+            if (BADWORDS.some(word => child.innerText.includes(word))) {
                 element.parentNode.removeChild(element);
             }
         }
     }
 }
-// =========================
 
-
-// ========= MAKO ==========
-const MAKO_BADWORD = 'ממומן'
-const filterMako = () => {
-    removeByClassname('ob-dynamic-rec-container')
-    removeByClassname('ob-widget-items-container')
-    removeByClassname('ob-widget')
-    removeByClassname('mako_main_portlet_container')
-    // removeByTag('li')
-}
-
-const removeByClassname = (className) => {
-    const elements = document.getElementsByClassName(className);
-    removeSponsoredElements(elements);
-}
-
-const removeByTag = (tagName) => {
-    const elements = document.getElementsByTagName(tagName);
-    removeSponsoredElements(elements);
-}
-
-const removeSponsoredElements = (elements) => {
+const removeMultiImages1280Componenta = () => {
+    const elements = document.getElementsByClassName('MultiImages1280Componenta');
     for (let i = 0; i < elements.length; i++) {
-        if (elements[i].innerHTML.includes(MAKO_BADWORD)) {
-            console.log('found bad word')
+        if (BADWORDS.some(word => elements[i].innerHTML.includes(word))) {
             elements[i].parentNode.removeChild(elements[i]);
         }
     }
 }
 
-// =========================
 
-const currentURL = window.location.href;
-if (currentURL.includes('ynet')) {
-    filterYnet();
-} if (currentURL.includes('mako')) {
-    setTimeout(() => {
-        // need timeout since the ads are created in few seconds delay
-        filterMako();
-      }, 5000);
+// ==========================
+
+
+const main = () => {
+    const currentURL = window.location.href;
+    console.log(currentURL)
+    console.log("running filterer...")
+    if (currentURL.includes('ynet')) {
+        filterYnet();
+    } else if (currentURL.includes('mako')) {
+        setTimeout(() => {
+            // need timeout since the ads are created in few seconds delay
+            filterMako();
+        }, 5000);
+    } else if (currentURL.includes('n12')) {
+        setTimeout(() => {
+            filterN12();
+        }, 5000);
+    }
+    console.log("finished")
 }
+
+main()
