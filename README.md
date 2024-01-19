@@ -1,8 +1,11 @@
-# Israel News Filter Chrome Extension
+# Sponsored Blocker - Chrome Extension
 
 ## Overview
 
-SponsoredBlocker extention is a handy tool designed to enhance your news reading experience by filtering out sponsored articles from Israeli news websites. Say goodbye to intrusive sponsored content and focus on the news that matters to you.
+SponsoredBlocker extension is a handy tool designed to enhance your news reading experience by filtering out sponsored articles from Israeli news websites. Say goodbye to intrusive sponsored content and focus on the news that matters to you.
+
+![Example](https://github.com/eyalmutzary/SponsoredBlocker-Chrome-extension/blob/master/%E2%80%8F%E2%80%8Fscreenshot.JPG)
+
 
 ## Features
 
